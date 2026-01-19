@@ -157,7 +157,7 @@
     <div class="login-card">
       <div class="login-header">
         <h2>مرحبا بكم في موقع أكفّاء ثاني الثانوي</h2>
-        <p>أدخل بياناتك للوصول إلى حسابك</p>
+        <p>أدخل بياناتك للوصول إلى حسابك<br>يمكنك إدخال نفس بياناتك من موقعنا السابق <a href="https://avvaluhsaanavee.github.io/">أول الثانوي</a></p>
       </div>
       <hr class="divider">
       <form id="loginForm">
@@ -239,7 +239,7 @@
       const password = document.getElementById('password').value;
       signInWithEmailAndPassword(auth, email, password)
         .then(userCredential => {
-          alert('Logged in as ' + userCredential.user.email + 'yaa hee');
+          alert('Logged in as ' + userCredential.user.email + '\u00A0yaa hee');
           window.location.href = './';
         })
         .catch(error => alert('Mushkilathuka Ey?\n' + error.message));
@@ -341,4 +341,5 @@
     animate();
   </script>
 </body>
+
 </html>
