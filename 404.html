@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="11.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&family=Lateef&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <title>الصفحة غير موجودة يا حي - 404</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #ecfadc;
+      font-family: 'Aref Ruqaa', serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 10rem;
+      color: #2f4931;
+      margin-bottom: .8rem;
+      font-family: consolas, serif;
+    }
+
+    p {
+      font-size: 1.5rem;
+      color: #2f4931;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .home-btn {
+      font-size: 20px;
+      font-family: 'Aref Ruqaa', serif;
+      background-color: #60916400;
+      backdrop-filter: blur(2px) saturate(100%);
+      box-shadow: 0 0 50px #6091647c;
+      border: none;
+      border-radius: 35px;
+      width: 75%;
+      min-width: 250px;
+      height: 55px;
+      margin-top: 50px;
+      padding: 0 25px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .home-btn:hover {
+      background-color: #6091648e;
+      transform: scale(1.03);
+      box-shadow: 0 0 60px #609164aa;
+    }
+
+    .blurring {
+      animation: slowblur 10s infinite;
+    }
+
+    @keyframes slowblur {
+      0% { filter: contrast(1) blur(0); }
+      50% { filter: contrast(2) blur(1px); }
+      100% { filter: contrast(1) blur(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class='blurring'>404</h1>
+    <p id="maafmaaf"></p>
+    <a href='./avvaluhsaanavee.github.io'>
+      <button class='home-btn'>اذهب الى الصفحة الرئيسية</button>
+    </a>
+  </div>
+
+  <canvas id="rippleCanvas"></canvas>
+
+  <script>
+  const aduahanveeThakethi = [
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "معذرة، الصفحة التي تبحث عنها غير موجودة.",
+    "هذا أول خطأ لك",
+    "أطلع من هدومي؟",
+    "اسكت يا حي",
+    "كذلك الحي",
+    "مشكلتك اي؟",
+    "هل هذا يصح؟",
+    "كن معي",
+    "من شدة الضرب والله لم يخرج دم",
+    "يا ود اتق الله",
+    "صل على النبي",
+    "أسألك بالله",
+    "ون ول كنوليوشن اف طو ينيمدل دسكريت دستربيوشن از ينيمدل"
+  ];
+  const fenenveeThakethi = document.getElementById('maafmaaf');
+  const randomIndex = Math.floor(Math.random() * aduahanveeThakethi.length);
+
+  fenenveeThakethi.textContent = aduahanveeThakethi[randomIndex];
+
+
+    /*
+          RIPLE CANVAS ( masha heyo spelling nubayas )
+          --------------------------------------------
+    */
+    
+    const canvas = document.getElementById('rippleCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    
+    function resize(){
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const ripples = [];
+    const leaves = [];
+    const btn = document.querySelector('.home-btn');
+
+    // Initialize leaves with very low initial velocity
+    for(let i=0; i<200; i++){
+      leaves.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        drift: (Math.random() * 0.15 + 0.05), // base drift
+        angle: Math.random() * Math.PI * 2,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+      });
+    }
+
+    document.addEventListener('mousemove', e => {
+      ripples.push({
+        type: 'circle',
+        x: e.clientX, 
+        y: e.clientY, 
+        r: 0, 
+        alpha: 0.3
+      });
+    });
+
+    function spawnBtnRipple() {
+        if(btn) {
+            const rect = btn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            ripples.push({
+                type: 'rect',
+                x: centerX,
+                y: centerY,
+                baseW: rect.width,
+                baseH: rect.height,
+                growth: 0,
+                alpha: 0.5
+            });
+        }
+    }
+
+    // double ripple interval 8s
+    setInterval(() => {
+        spawnBtnRipple();
+        setTimeout(spawnBtnRipple, 1000); // delay btwn double ripple 1s
+    }, 8000);
+
+    function animate(){
+      ctx.clearRect(0, 0, width, height);
+
+      // --- Ripples ---
+      for(let i=0; i<ripples.length; i++){
+        const rp = ripples[i];
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(101,186,109,${rp.alpha})`;
+        ctx.lineWidth = 1.2;
+
+        if (rp.type === 'circle') {
+            ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+            ctx.stroke();
+            rp.r += 1.1;
+            rp.alpha -= 0.004;
+        } 
+        else if (rp.type === 'rect') {
+            const currentW = rp.baseW + rp.growth;
+            const currentH = rp.baseH + rp.growth;
+            const currentRadius = 35 + (rp.growth / 2);
+            if (ctx.roundRect) {
+                ctx.roundRect(rp.x - currentW/2, rp.y - currentH/2, currentW, currentH, currentRadius);
+            } else {
+                ctx.rect(rp.x - currentW/2, rp.y - currentH/2, currentW, currentH);
+            }
+            ctx.stroke();
+            
+            // growth aa fade
+            rp.growth += 0.7; 
+            rp.alpha -= 0.0018; 
+        }
+
+        if(rp.alpha <= 0){ 
+            ripples.splice(i, 1); 
+            i--; 
+        }
+      }
+
+      // Button center
+      let bX, bY;
+      if (btn) {
+          const r = btn.getBoundingClientRect();
+          bX = r.left + r.width / 2;
+          bY = r.top + r.height / 2;
+      }
+
+      // One-third screen radius for attraction zone
+      const attractionRadius = width / 3;
+
+      // --- Leaves ---
+      for(const leaf of leaves){
+        
+        // 1. Localized Spiral Attraction Logic
+        if (bX !== undefined) {
+            const dx = bX - leaf.x;
+            const dy = bY - leaf.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            
+            // Only attract if within the center third of the screen
+            if (dist < attractionRadius && dist > 15) {
+                // Diminishing factor based on distance (stronger at edge of zone, weaker at center)
+                const strength = (1 - dist/attractionRadius);
+                
+                // Radial pull (Extreme slow)
+                const pullFactor = 0.000008 * strength;
+                leaf.vx += dx * pullFactor;
+                leaf.vy += dy * pullFactor;
+
+                // Tangential force (Circular motion)
+                const orbitFactor = 0.000025 * strength;
+                leaf.vx += dy * orbitFactor; 
+                leaf.vy += -dx * orbitFactor;
+            }
+        }
+
+        // 2. Ripple Interaction
+        for(const rp of ripples){
+          let dx, dy, dist, isHit = false;
+          const pushStrength = 1.5;
+
+          if (rp.type === 'circle') {
+              dx = leaf.x - rp.x;
+              dy = leaf.y - rp.y;
+              dist = Math.sqrt(dx*dx + dy*dy);
+              if(dist < rp.r + 15 && dist > rp.r - 15) isHit = true;
+          } 
+          else if (rp.type === 'rect') {
+              dx = leaf.x - rp.x;
+              dy = leaf.y - rp.y;
+              const halfW = (rp.baseW + rp.growth) / 2;
+              const halfH = (rp.baseH + rp.growth) / 2;
+              const absDx = Math.abs(dx);
+              const absDy = Math.abs(dy);
+
+              // Wider hit zone for the larger button ripple
+              const onV = (absDy < halfH + 20) && (absDx > halfW - 15 && absDx < halfW + 25);
+              const onH = (absDx < halfW + 20) && (absDy > halfH - 15 && absDy < halfH + 25);
+
+              if (onV || onH) {
+                 isHit = true;
+                 dist = Math.sqrt(dx*dx + dy*dy); 
+              }
+          }
+
+          if (isHit) {
+              const d = dist || 1; 
+              leaf.vx += (dx / d) * pushStrength;
+              leaf.vy += (dy / d) * pushStrength;
+              leaf.angle = Math.atan2(leaf.vy, leaf.vx);
+          }
+        }
+
+        // Apply High Friction for "Slower" feel
+        leaf.vx *= 0.99; 
+        leaf.vy *= 0.99;
+        
+        leaf.x += leaf.vx + Math.cos(leaf.angle) * leaf.drift;
+        leaf.y += leaf.vy + Math.sin(leaf.angle) * leaf.drift * 0.3;
+
+        // Wrapping
+        if(leaf.x > width + 30) leaf.x = -30;
+        if(leaf.x < -30) leaf.x = width + 30;
+        if(leaf.y > height + 30) leaf.y = -30;
+        if(leaf.y < -30) leaf.y = height + 30;
+
+        // Draw
+        ctx.beginPath();
+        ctx.ellipse(leaf.x, leaf.y, 8, 4, leaf.angle, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(101,186,109,0.35)';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>كفيف.com - أول الثانوي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&family=Lateef&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-green: #14532d;
+      --forest-green: #166534;
+      --pastel-leaf: #dcfce7;
+      --cloud-white: rgba(255, 255, 255, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(to bottom, #d1fae5, #86efac);
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+    }
+
+    /* --- Parallax Clouds --- */
+    .cloud-layer {
+      position: fixed;
+      width: 200%;
+      height: 100%;
+      top: 0; left: 0;
+      pointer-events: none;
+      background-repeat: repeat-x;
+      animation: drift linear infinite;
+    }
+    .clouds-back { 
+      background-image: url('https://i.imgur.com/8Xb38fH.png'); /* Replace with cloud sprite */
+      opacity: 0.4;
+      z-index: -2;
+      animation-duration: 120s;
+    }
+    .clouds-mid { 
+      background-image: url('https://i.imgur.com/8Xb38fH.png'); 
+      opacity: 0.6;
+      z-index: -1;
+      animation-duration: 80s;
+      top: 10%;
+    }
+    .clouds-front { 
+      background-image: url('https://i.imgur.com/8Xb38fH.png'); 
+      opacity: 0.3;
+      z-index: 10; /* Overlaps cards */
+      animation-duration: 40s;
+      top: 20%;
+    }
+
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* --- Low Lying Sun --- */
+    .sun {
+      position: fixed;
+      top: 15%;
+      right: 10%;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #fef3c7 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.6;
+      z-index: -3;
+    }
+
+    /* --- Forest Footer --- */
+    .forest-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 150px;
+      background: url('https://www.transparenttextures.com/patterns/forest-flora.png') repeat-x bottom;
+      background-size: contain;
+      z-index: 5;
+      cursor: pointer;
+      filter: sepia(0.5) hue-rotate(80deg) brightness(0.7);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 35px;
+      justify-content: center;
+      padding: 100px 20px 200px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* --- Brush Stroke Cards --- */
+    .card {
+      width: 280px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      /* Thick varying outline like a brush stroke */
+      border: 3px solid var(--forest-green);
+      border-radius: 40px 15px 35px 20px; 
+      box-shadow: 10px 10px 0px rgba(20, 83, 45, 0.15);
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: rotate(-1deg) translateY(-5px);
+      box-shadow: 15px 15px 0px rgba(20, 83, 45, 0.2);
+    }
+
+    .card .text-preview {
+      font-family: 'Lateef', serif;
+      font-size: 32px;
+      color: var(--deep-green);
+      margin-bottom: 25px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn {
+      background: white;
+      border: 2px solid var(--forest-green);
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      background: var(--pastel-leaf);
+      transform: scale(1.1);
+    }
+
+    .btn img { width: 24px; height: 24px; }
+
+    /* --- Particle Elements (Leaves/Birds) --- */
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes leaf-fall {
+      to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    @keyframes bird-fly {
+      to { transform: translate(-100vw, -100vh) scale(0.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sun"></div>
+  <div class="cloud-layer clouds-back"></div>
+  <div class="cloud-layer clouds-mid"></div>
+  <div class="cloud-layer clouds-front"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="text-preview">الفيزياء</div>
+      <div class="button-group">
+        <button class="btn" title="المادة"><img src="https://img.icons8.com/fluency-systems-filled/48/166534/atom.png"></button>
+        <button class="btn" title="الكتب"><img src="https://img.icons8.com/fluency-systems-filled/48/166534/stack-of-plots.png"></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="text-preview">الأحياء</div>
+      <div class="button-group">
+        <button class="btn" title="المادة"><img src="https://img.icons8.com/fluency-systems-filled/48/166534/leaf.png"></button>
+        <button class="btn" title="الكتب"><img src="https://img.icons8.com/fluency-systems-filled/48/166534/stack-of-plots.png"></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="text-preview">الكيمياء</div>
+      <div class="button-group">
+        <button class="btn" title="المادة"><img src="https://img.icons8.com/fluency-systems-filled/48/166534/test-tube.png"></button>
+        <button class="btn" title="الكتب"><img src="https://img.icons8.com/fluency-systems-filled/48/166534/stack-of-plots.png"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="forest-footer" id="forest"></div>
+
+  <script>
+    const forest = document.getElementById('forest');
+
+    forest.addEventListener('click', (e) => {
+      // Create Birds
+      for(let i=0; i<5; i++) {
+        createParticle(e.clientX, e.clientY, '🦅', 'bird-fly');
+      }
+      // Create Leaves
+      for(let i=0; i<10; i++) {
+        createParticle(e.clientX, e.clientY, '🍃', 'leaf-fall');
+      }
+    });
+
+    function createParticle(x, y, char, anim) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.innerText = char;
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      p.style.fontSize = Math.random() * 20 + 10 + 'px';
+      p.style.animation = `${anim} ${2 + Math.random() * 2}s forwards ease-out`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 4000);
+    }
+  </script>
+</body>
+</html>
